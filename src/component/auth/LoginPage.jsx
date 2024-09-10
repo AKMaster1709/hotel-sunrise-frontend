@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ApiService from "../../service/ApiService";
 
 function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // Prefill default credentials for testing purposes
+    const [email, setEmail] = useState('demo@hotel.com');
+    const [password, setPassword] = useState('password123');
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
 
-  const from = location.state?.from?.pathname || '/home';
-
+    const from = location.state?.from?.pathname || '/home';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +22,7 @@ function LoginPage() {
         }
 
         try {
-            const response = await ApiService.loginUser({email, password});
+            const response = await ApiService.loginUser({ email, password });
             if (response.statusCode === 200) {
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('role', response.role);
